@@ -3,9 +3,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
-import MovieDetail from "./pages/MovieDetail";
-import Watchlist from "./pages/Watchlist";
-import { WatchlistProvider } from "./context/WatchlistContext";
+import MovieDetail from "./pages/MovieDetails";
+import Watchlist from "./pages/WatchList";
+import { WatchlistProvider } from "./context/WatchListContext";
 
 export default function App() {
   return (
