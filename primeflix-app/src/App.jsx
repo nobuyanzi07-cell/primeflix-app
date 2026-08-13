@@ -5,11 +5,11 @@ import Home from "./pages/Home";
 import Search from "./pages/Search";
 import MovieDetail from "./pages/MovieDetails";
 import Watchlist from "./pages/WatchList";
-import { WatchlistProvider } from "./context/WatchListContext";
+import { WatchListProvider } from "./context/WatchListContext";
 
 export default function App() {
   return (
-    <WatchlistProvider>
+    <WatchListProvider>
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -20,6 +20,6 @@ export default function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
-    </WatchlistProvider>
+    </WatchListProvider>
   );
 }
