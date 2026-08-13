@@ -5,6 +5,7 @@ import MovieCard from "../components/MovieCard";
 function Search() {
   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
   const { addToWatchList } = useWatchList();
 
   const searchMovies = async () => {
@@ -18,6 +19,7 @@ function Search() {
 
     const data = await res.json();
     setMovies(data.results);
+    setHasSearched(true);
   };
 
   return (
@@ -44,20 +46,27 @@ function Search() {
           </button>
         </form>
 
-        <div className="search-results">
-          {movies.map((movie) => (
-            <div className="search-card" key={movie.id}>
-              <MovieCard movie={movie} />
+        {hasSearched && movies.length === 0 ? (
+          <div className="empty-state">
+            <h2>No results found.</h2>
+            <p>Try a different title or check your spelling.</p>
+          </div>
+        ) : (
+          <div className="search-results">
+            {movies.map((movie) => (
+              <div className="search-card" key={movie.id}>
+                <MovieCard movie={movie} />
 
-              <button
-                className="watchlist-button"
-                onClick={() => addToWatchList(movie)}
-              >
-                Add to Watchlist
-              </button>
-            </div>
-          ))}
-        </div>
+                <button
+                  className="watchlist-button"
+                  onClick={() => addToWatchList(movie)}
+                >
+                  Add to Watchlist
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );

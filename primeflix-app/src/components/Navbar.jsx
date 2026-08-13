@@ -33,7 +33,7 @@ export default function Navbar() {
           >
             Watchlist
             {watchList.length > 0 && (
-              <span className="watchlist-count">{watchlist.length}</span>
+             <span className="watchlist-count">{watchList.length}</span>
             )}
           </Link>
         </nav>
