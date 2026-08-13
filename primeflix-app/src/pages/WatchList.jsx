@@ -1,7 +1,7 @@
 import { useWatchList } from "../context/WatchListContext";
 
 function Watchlist() {
-  const { watchList, removeFromWatchlist } = useWatchList();
+  const { watchList, removeFromWatchList } = useWatchList();
 
   return (
     <div>
@@ -14,7 +14,7 @@ function Watchlist() {
           <div key={movie.id}>
             <h3>{movie.title}</h3>
 
-            <button onClick={() => removeFromWatchlist(movie.id)}>
+            <button onClick={() => removeFromWatchList(movie.id)}>
               Remove
             </button>
           </div>
