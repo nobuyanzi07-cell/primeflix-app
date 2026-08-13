@@ -1,16 +1,16 @@
-import { useWatchlist } from "../context/WatchlistContext";
+import { useWatchList } from "../context/WatchListContext";
 
 function Watchlist() {
-  const { watchlist, removeFromWatchlist } = useWatchlist();
+  const { watchList, removeFromWatchlist } = useWatchList();
 
   return (
     <div>
       <h1>My Watchlist</h1>
 
-      {watchlist.length === 0 ? (
+      {watchList.length === 0 ? (
         <p>Your watchlist is empty.</p>
       ) : (
-        watchlist.map((movie) => (
+        watchList.map((movie) => (
           <div key={movie.id}>
             <h3>{movie.title}</h3>
 

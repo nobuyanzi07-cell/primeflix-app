@@ -1,12 +1,12 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { useWatchlist } from "../context/WatchListContext";
+import { useWatchList } from "../context/WatchListContext";
 
 export default function Navbar() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const { watchlist } = useWatchlist();
+  const { watchList } = useWatchList();
  
    const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ export default function Navbar() {
             className={location.pathname === "/watchlist" ? "active" : ""}
           >
             Watchlist
-            {watchlist.length > 0 && (
+            {watchList.length > 0 && (
               <span className="watchlist-count">{watchlist.length}</span>
             )}
           </Link>
