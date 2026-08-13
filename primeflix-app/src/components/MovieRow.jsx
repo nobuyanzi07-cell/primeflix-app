@@ -13,9 +13,10 @@ function MovieRow() {
   }, []);
 
   return (
-    <div style={{ display: "flex", gap: "10px", overflowX: "auto" }}>
+    <div className="movie-row">
       {movies.map((movie) => (
         <img
+          className="movie-poster"
           key={movie.id}
           src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
           alt={movie.title}
