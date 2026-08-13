@@ -3,9 +3,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
-import MovieDetails from "./pages/MovieDetails";
-import Watchlist from "./pages/Watchlist";
-import { WatchlistProvider } from "./context/WatchlistContext";
+import MovieDetail from "./pages/MovieDetails";
+import Watchlist from "./pages/WatchList";
+import { WatchlistProvider } from "./context/WatchListContext";
 
 export default function App() {
   return (
@@ -15,7 +15,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/movie/:id" element={<MovieDetails />} />
+          <Route path="/movie/:id" element={<MovieDetail />} />
           <Route path="/watchlist" element={<Watchlist />} />
         </Routes>
         <Footer />
