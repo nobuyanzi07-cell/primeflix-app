@@ -8,7 +8,10 @@ function Watchlist() {
       <h1>My Watchlist</h1>
 
       {watchList.length === 0 ? (
-        <p>Your watchlist is empty.</p>
+        <div className="empty-state">
+          <h2>Your watchlist is empty.</h2>
+          <p>Add movies you want to remember.</p>
+        </div>
       ) : (
         watchList.map((movie) => (
           <div key={movie.id}>

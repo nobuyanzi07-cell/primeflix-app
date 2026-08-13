@@ -32,8 +32,11 @@ function MovieDetails() {
 
           <p>{movie.release_date}</p>
           <p>{movie.runtime} min</p>
-          <p>{movie.genres?.map((g) => g.name).join(", ")}</p>
-
+         <div className="genre-pills">
+              {movie.genres?.map((g) => (
+              <span key={g.id} className="genre-pill">{g.name}</span>
+              ))}
+        </div>
           <p>{movie.overview}</p>
         </div>
       </div>
