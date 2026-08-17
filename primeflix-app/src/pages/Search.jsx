@@ -1,25 +1,39 @@
 import { useState } from "react";
 import { useWatchList } from "../context/WatchListContext";
 import MovieCard from "../components/MovieCard";
+import StateBlock from "../components/StateBlock";
 
 function Search() {
   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const { addToWatchList } = useWatchList();
 
   const searchMovies = async () => {
     if (!search.trim()) return;
 
-    const res = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${
-        import.meta.env.VITE_TMDB_API_KEY
-      }&query=${encodeURIComponent(search)}`
-    );
+    setLoading(true);
+    setError(false);
 
-    const data = await res.json();
-    setMovies(data.results);
-    setHasSearched(true);
+    try {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=${
+          import.meta.env.VITE_TMDB_API_KEY
+        }&query=${encodeURIComponent(search)}`
+      );
+
+      if (!res.ok) throw new Error("Request failed");
+
+      const data = await res.json();
+      setMovies(data.results);
+      setHasSearched(true);
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -46,12 +60,15 @@ function Search() {
           </button>
         </form>
 
-        {hasSearched && movies.length === 0 ? (
-          <div className="empty-state">
-            <h2>No results found.</h2>
-            <p>Try a different title or check your spelling.</p>
-          </div>
-        ) : (
+        {loading && <StateBlock type="loading" />}
+
+        {!loading && error && <StateBlock type="error" />}
+
+        {!loading && !error && hasSearched && movies.length === 0 && (
+          <StateBlock type="empty" />
+        )}
+
+        {!loading && !error && movies.length > 0 && (
           <div className="search-results">
             {movies.map((movie) => (
               <div className="search-card" key={movie.id}>
