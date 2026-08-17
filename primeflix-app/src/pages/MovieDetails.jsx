@@ -2,20 +2,34 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getMovieDetails } from "../api/movieApi";
 import ScoreDial from "../components/ScoreDial";
+import StateBlock from "../components/StateBlock";
 
 function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function fetchDetails() {
-      const data = await getMovieDetails(id);
-      setMovie(data);
+      setLoading(true);
+      setError(false);
+      try {
+        const data = await getMovieDetails(id);
+        if (!data) throw new Error("Not found");
+        setMovie(data);
+      } catch (err) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchDetails();
   }, [id]);
 
-  if (!movie) return <p>Loading...</p>;
+  if (loading) return <StateBlock type="loading" />;
+  if (error) return <StateBlock type="error" />;
+  if (!movie) return <StateBlock type="empty" />;
 
   return (
     <div>
