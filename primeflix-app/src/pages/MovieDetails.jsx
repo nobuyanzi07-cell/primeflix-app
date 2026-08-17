@@ -58,4 +58,4 @@ function MovieDetails() {
   );
 }
 
-export default MovieDetails
+export default MovieDetails;
