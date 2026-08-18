@@ -2,15 +2,26 @@ import { createContext, useContext, useState } from "react";
 
 const WatchListContext = createContext();
 
-export function WatchlistProvider({ children }) {
-  const [watchlist, setWatchlist] = useState([]);
+export function WatchListProvider({ children }) {
+  const [watchList, setWatchList] = useState([]);
+
+  const addToWatchList = (movie) => {
+    setWatchList([...watchList, movie]);
+  };
+
+  const removeFromWatchList = (id) => {
+    setWatchList(watchList.filter((movie) => movie.id !== id));
+  };
+
   return (
-    <WatchListContext.Provider value={{ watchlist, setWatchlist }}>
+    <WatchListContext.Provider
+      value={{ watchList, addToWatchList, removeFromWatchList }}
+    >
       {children}
     </WatchListContext.Provider>
   );
 }
 
-export function useWatchlist() {
+export function useWatchList() {
   return useContext(WatchListContext);
 }
