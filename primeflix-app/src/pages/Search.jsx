@@ -1,39 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useWatchList } from "../context/WatchListContext";
+import { searchMovies } from "../api/movieApi";
 import MovieCard from "../components/MovieCard";
 import StateBlock from "../components/StateBlock";
 
 function Search() {
-  const [search, setSearch] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialQuery = searchParams.get("q") || "";
+
+  const [search, setSearch] = useState(initialQuery);
   const [movies, setMovies] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const { addToWatchList } = useWatchList();
+  const { addToWatchList, isInWatchList } = useWatchList();
 
-  const searchMovies = async () => {
-    if (!search.trim()) return;
+  const runSearch = async (term) => {
+    if (!term.trim()) return;
 
     setLoading(true);
     setError(false);
 
     try {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${
-          import.meta.env.VITE_TMDB_API_KEY
-        }&query=${encodeURIComponent(search)}`
-      );
-
-      if (!res.ok) throw new Error("Request failed");
-
-      const data = await res.json();
-      setMovies(data.results);
+      const results = await searchMovies(term);
+      setMovies(results);
       setHasSearched(true);
-    } catch (err) {
+    } catch {
       setError(true);
     } finally {
       setLoading(false);
     }
+  };
+
+  // Auto-run search when arriving from the navbar with ?q=
+  useEffect(() => {
+    if (initialQuery) {
+      runSearch(initialQuery);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialQuery]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearchParams(search.trim() ? { q: search.trim() } : {});
+    runSearch(search);
   };
 
   return (
@@ -41,13 +52,7 @@ function Search() {
       <div className="container">
         <h1>Search Movies</h1>
 
-        <form
-          className="search-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            searchMovies();
-          }}
-        >
+        <form className="search-form" onSubmit={handleSubmit}>
           <input
             className="search-input"
             value={search}
@@ -61,9 +66,7 @@ function Search() {
         </form>
 
         {loading && <StateBlock type="loading" />}
-
         {!loading && error && <StateBlock type="error" />}
-
         {!loading && !error && hasSearched && movies.length === 0 && (
           <StateBlock type="empty" />
         )}
@@ -76,9 +79,10 @@ function Search() {
 
                 <button
                   className="watchlist-button"
+                  disabled={isInWatchList(movie.id)}
                   onClick={() => addToWatchList(movie)}
                 >
-                  Add to Watchlist
+                  {isInWatchList(movie.id) ? "In Watchlist" : "Add to Watchlist"}
                 </button>
               </div>
             ))}

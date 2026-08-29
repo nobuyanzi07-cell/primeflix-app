@@ -1,10 +1,11 @@
 import { useWatchList } from "../context/WatchListContext";
+import MovieCard from "../components/MovieCard";
 
 function Watchlist() {
   const { watchList, removeFromWatchList } = useWatchList();
 
   return (
-    <div>
+    <main className="container watchlist-page">
       <h1>My Watchlist</h1>
 
       {watchList.length === 0 ? (
@@ -13,17 +14,21 @@ function Watchlist() {
           <p>Add movies you want to remember.</p>
         </div>
       ) : (
-        watchList.map((movie) => (
-          <div key={movie.id}>
-            <h3>{movie.title}</h3>
-
-            <button onClick={() => removeFromWatchList(movie.id)}>
-              Remove
-            </button>
-          </div>
-        ))
+        <div className="search-results">
+          {watchList.map((movie) => (
+            <div className="search-card" key={movie.id}>
+              <MovieCard movie={movie} />
+              <button
+                className="watchlist-button"
+                onClick={() => removeFromWatchList(movie.id)}
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+        </div>
       )}
-    </div>
+    </main>
   );
 }
 
