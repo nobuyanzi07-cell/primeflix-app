@@ -361,4 +361,139 @@ a {
   .search-card {
     width: 140px;
   }
+  /* Hero */
+.hero {
+  background-size: cover;
+  background-position: center top;
+  padding: 100px 0 60px;
+}
+
+.hero-inner {
+  max-width: 640px;
+}
+
+.hero h1 {
+  font-size: 40px;
+  margin-bottom: 14px;
+}
+
+.hero p {
+  color: #d0d0d8;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.hero-cta {
+  display: inline-block;
+  background: #f5c518;
+  color: #111111;
+  font-weight: bold;
+  padding: 10px 22px;
+  border-radius: 8px;
+}
+
+/* Home sections */
+.home-section {
+  margin-top: 20px;
+}
+
+.section-title {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+/* Movie Details */
+.movie-details {
+  display: flex;
+  gap: 32px;
+  padding: 40px 0;
+  flex-wrap: wrap;
+}
+
+.movie-details-poster {
+  width: 280px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.movie-details-info {
+  flex: 1;
+  min-width: 260px;
+}
+
+.movie-details-info h1 {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.movie-details-meta {
+  color: #aaaab4;
+  margin: 12px 0;
+}
+
+.genre-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.genre-pill {
+  background: #1a1a20;
+  border: 1px solid #30303a;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 13px;
+}
+
+.movie-details-overview {
+  line-height: 1.6;
+  color: #d0d0d8;
+  margin: 16px 0 24px;
+}
+
+.movie-details .watchlist-button {
+  width: auto;
+  padding: 10px 24px;
+}
+
+/* Watchlist page */
+.watchlist-page {
+  padding: 40px 0;
+}
+
+.watchlist-page h1 {
+  margin-bottom: 25px;
+  font-size: 30px;
+}
+
+.empty-state {
+  color: #aaaab4;
+}
+
+.empty-state h2 {
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 0 40px;
+  }
+  .hero h1 {
+    font-size: 28px;
+  }
+  .movie-details {
+    flex-direction: column;
+    padding: 25px 0;
+  }
+  .movie-details-poster {
+    width: 100%;
+    max-width: 280px;
+  }
+}
 }
